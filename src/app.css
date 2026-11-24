@@ -1,0 +1,363 @@
+/* App-level styles on top of the supplied monointerferenz design system. */
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.app-main {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Two-column project layout: form + context rail. */
+.project-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(15rem, 0.85fr);
+  max-width: var(--page);
+  margin-inline: auto;
+  width: 100%;
+}
+
+.project-layout > .context {
+  border-left: var(--line) solid var(--line-color);
+  min-width: 0;
+  padding: var(--space-4) var(--space-3);
+}
+
+.project-main {
+  min-width: 0;
+}
+
+@media (max-width: 68rem) {
+  .project-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .project-layout > .context {
+    border-left: 0;
+    border-top: var(--line) solid var(--line-color);
+  }
+}
+
+/* Overview table rows are clickable. */
+.row-link {
+  cursor: pointer;
+}
+
+.row-link td:first-child a,
+.row-link td:first-child .row-id {
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+/* Save/feedback bar sticks to the bottom of the project form. */
+.action-bar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+  padding: var(--space-3) clamp(var(--space-3), 4vw, 4rem);
+  border-top: var(--line) solid var(--line-color);
+  background: var(--paper);
+}
+
+.action-bar .spacer {
+  flex: 1;
+}
+
+/* Inline validation: mark invalid inputs without blocking the form. */
+.field--invalid input,
+.field--invalid select,
+.field--invalid textarea {
+  border-color: #b45309;
+  border-left-width: 0.3rem;
+}
+
+.field--invalid .field-error {
+  color: #b45309;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  font-weight: 700;
+}
+
+/* Build log output. */
+.build-log {
+  max-height: 16rem;
+  overflow: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tag-list li {
+  padding: 0.15rem 0.45rem;
+  border: var(--line) solid var(--quiet-line);
+  background: var(--code);
+  font: 600 var(--step--1) / 1.4 var(--font-mono);
+}
+
+/* Loading dots stay subtle; the design system is intentionally low-motion. */
+.loading-row {
+  padding: var(--space-4);
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+/* ── Colour tokens for status indication ────────────────────────────
+   The supplied design system is deliberately accent-neutral; the app
+   needs a small semantic palette on top of it. */
+[data-theme="light"] {
+  --ok: #2f6f3e;
+  --warn: #8a5a00;
+  --err: #9a2f2f;
+  --info: #31557a;
+}
+
+[data-theme="dark"] {
+  --ok: #7fc98f;
+  --warn: #e0c26a;
+  --err: #f09a9a;
+  --info: #93c1e8;
+}
+
+/* ── App header ─────────────────────────────────────────────────── */
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: baseline;
+  justify-content: space-between;
+  padding: var(--space-3) clamp(var(--space-3), 4vw, 4rem);
+  border-bottom: var(--line) solid var(--line-color);
+  background: var(--surface);
+}
+
+.app-header__brand {
+  display: flex;
+  gap: var(--space-2);
+  align-items: baseline;
+}
+
+.app-header__nav {
+  display: flex;
+  gap: var(--space-1);
+}
+
+.app-header__nav .is-current {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+.app-header__path {
+  max-width: 40ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ── Section heads ──────────────────────────────────────────────── */
+.overview-head,
+.project-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: flex-end;
+  justify-content: space-between;
+  max-width: var(--page);
+  margin: var(--space-4) auto var(--space-3);
+  width: 100%;
+  padding-inline: clamp(var(--space-3), 4vw, 4rem);
+}
+
+.heading {
+  max-width: none;
+}
+
+.overview-actions {
+  align-items: flex-end;
+}
+
+.overview-search {
+  min-width: 16rem;
+}
+
+.project-head__state {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+/* Content below the head shares the same horizontal rhythm. */
+.app-main > .notice,
+.app-main > .table-wrap,
+.app-main > .loading-row,
+.app-main > .plain-list {
+  max-width: var(--page);
+  margin-inline: auto;
+  margin-bottom: var(--space-3);
+  width: calc(100% - 2 * clamp(var(--space-3), 4vw, 4rem));
+}
+
+/* ── Status chips ───────────────────────────────────────────────── */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.15rem 0.5rem;
+  border: var(--line) solid currentColor;
+  font: 700 var(--step--1) / 1.4 var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.chip--ok {
+  color: var(--ok);
+}
+
+.chip--warn {
+  color: var(--warn);
+}
+
+.chip--err {
+  color: var(--err);
+}
+
+.chip--info {
+  color: var(--info);
+}
+
+.chip--muted {
+  color: var(--muted);
+  border-color: var(--quiet-line);
+}
+
+.docs-chips {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+/* ── Notice variants ────────────────────────────────────────────── */
+.notice--error {
+  border-left-color: var(--err);
+}
+
+.notice--warning {
+  border-left-color: var(--warn);
+}
+
+.notice--error .field-error,
+.field-error {
+  color: var(--err);
+}
+
+/* ── Context rail sections ──────────────────────────────────────── */
+.rail-section {
+  display: grid;
+  gap: var(--space-2);
+  padding-block: var(--space-3);
+  border-top: var(--line) solid var(--quiet-line);
+}
+
+.rail-section:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
+.raw-manifest {
+  max-height: 24rem;
+  margin: var(--space-2) 0 0;
+  padding: var(--space-2);
+  border: var(--line) solid var(--quiet-line);
+  background: var(--code);
+  font-size: var(--step--1);
+}
+
+/* ── Modal dialogs ──────────────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--paper) 82%, transparent);
+}
+
+.modal {
+  display: grid;
+  gap: var(--space-3);
+  width: min(32rem, 100%);
+  max-height: calc(100vh - 2 * var(--space-3));
+  overflow: auto;
+  padding: var(--space-4);
+  border: var(--line) solid var(--line-color);
+  background: var(--surface);
+}
+
+.modal--wide {
+  width: min(44rem, 100%);
+}
+
+.modal .heading {
+  margin-bottom: 0;
+}
+
+/* ── Path pickers ───────────────────────────────────────────────── */
+.path-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-2);
+}
+
+/* ── Toasts ─────────────────────────────────────────────────────── */
+.toast-stack {
+  position: fixed;
+  right: var(--space-3);
+  bottom: var(--space-3);
+  z-index: 60;
+  display: grid;
+  gap: var(--space-2);
+  width: min(28rem, calc(100vw - 2 * var(--space-3)));
+}
+
+.toast {
+  padding: var(--space-2) var(--space-3);
+  border: var(--line) solid var(--line-color);
+  border-left-width: 0.45rem;
+  background: var(--surface);
+  font-size: var(--step--1);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.toast--success {
+  border-left-color: var(--ok);
+}
+
+.toast--error {
+  border-left-color: var(--err);
+}
