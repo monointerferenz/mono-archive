@@ -15,7 +15,7 @@ Built with Rust + Tauri 2 and Svelte 5 (Vite).
   directory on save. Invalid input is marked inline and reported per field; it
   never silently rewrites or drops data.
 - **Documentation builds** — runs the supplied monointerferenz templating
-  engine (`DEV-RESOURCES/monointerferenz-templating-engine`) as a subprocess
+  engine ([`DEV-RESOURCES/monointerferenz-templating-engine`](https://github.com/monointerferenz/monointerferenz-templating-engine)) as a subprocess
   for `html`, `pdf`, `slides` or `all` exports. Output lands in the project's
   `exports/` folder; the engine's own sources and binary are never modified.
 - **Settings** — archive folder, engine project root, engine binary and project
